@@ -42,70 +42,80 @@ let state = {
             name: "Beetroot",
             imageSrc: "/assets/icons/001-beetroot.svg",
             price: 0.75,
-            amount: 0
+            amount: 0,
+            itemTotalPrice: 0
         },
         {
             id: 2,
             name: "Carrot",
             imageSrc: "/assets/icons/002-carrot.svg",
             price: 0.50,
-            amount: 0
+            amount: 0,
+            itemTotalPrice: 0
         },
         {
             id: 3,
             name: "Apple",
             imageSrc: "/assets/icons/003-apple.svg",
             price: 0.30,
-            amount: 0
+            amount: 0,
+            itemTotalPrice: 0
         },
         {
             id: 4,
             imageSrc: "/assets/icons/004-apricot.svg",
             name: "Apricot",
             price: 0.95,
-            amount: 0
+            amount: 0,
+            itemTotalPrice: 0
         },
         {
             id: 5,
             imageSrc: "/assets/icons/005-avocado.svg",
             name: "Avocado",
             price: 0.80,
-            amount: 0
+            amount: 0,
+            itemTotalPrice: 0
         },
         {
             id: 6,
             imageSrc: "/assets/icons/006-bananas.svg",
             name: "Banana",
             price: 0.35,
-            amount: 0
+            amount: 0,
+            itemTotalPrice: 0
         },
         {
             id: 7,
             name: "Bell pepper",
             imageSrc: "/assets/icons/007-bell-pepper.svg",
             price: 0.95,
-            amount: 0
+            amount: 0,
+            itemTotalPrice: 0
         },
         {
             id: 8,
             name: "Berry",
             imageSrc: "/assets/icons/008-berry.svg",
             price: 1,
-            amount: 0
+            amount: 0,
+            itemTotalPrice: 0
         },
         {
             id: 9,
             name: "BlueBerry",
             imageSrc: "/assets/icons/009-blueberry.svg",
             price: 1.2,
-            amount: 0
+            amount: 0,
+            itemTotalPrice: 0
         },
         {
             id: 10,
             name: "Eggplant",
             imageSrc: "/assets/icons/010-eggplant.svg",
             price: 0.65,
-            amount: 0
+            amount: 0,
+            itemTotalPrice: 0
         }
     ],
     totalPrice: 0
@@ -126,47 +136,55 @@ function removeItemFromCart(item) {
     }
 }
 
-function totalAmout() {
-    for (item of state.items) {
+function totalAmount() {
+    state.totalPrice = 0
+
+    for (const item of state.items) {
         state.totalPrice += item.price * item.amount
     }
+
+    const totalAmountNumber = document.querySelector('.total-number')
+    totalAmountNumber.textContent = `£${state.totalPrice}`
 }
-
-
 // Render Functions
 
 function renderShopItems() {
     const storeList = document.querySelector('.store--item-list')
-
     storeList.innerHTML = ""
 
-    for (item of state.items) {
+    for (const item of state.items) {
         const liEl = document.createElement('li')
+        const storeItemIconDiv = document.createElement('div')
+        const itemIcon = document.createElement('img')
+        const addToCartButton = document.createElement('button')
 
-        liEl.innerHTML = `
-            <div class="store--item-icon">
-            <img src="${item.imageSrc}" alt="${item.name}" />
-            </div>
-            <button class="add-to-cart-button">Add to cart</button>
-        `
-        storeList.append(liEl)
 
-    }
+        itemIcon.setAttribute('src', item.imageSrc)
+        itemIcon.setAttribute('alt', item.name)
 
-    //Check to make this better 
-    const storeButtons = document.querySelectorAll('.add-to-cart-button')
+        storeItemIconDiv.setAttribute('class', 'store--item-icon')
+        storeItemIconDiv.append(itemIcon)
 
-    storeButtons.forEach((element, index) => {
-        element.addEventListener('click', () => {
-            addItemToCart(state.items[index])
-            console.log(state)
+        addToCartButton.setAttribute('class', 'add-to-cart-button')
+        addToCartButton.textContent = "Add to cart"
+
+        addToCartButton.addEventListener('click', () => {
+            addItemToCart(item)
             render()
+            console.log(state)
         })
-    })
+
+        liEl.append(storeItemIconDiv, addToCartButton)
+        storeList.append(liEl)
+    }
 }
 
+
+
 function render() {
+    totalAmount()
     renderShopItems()
+
 }
 render()
 
