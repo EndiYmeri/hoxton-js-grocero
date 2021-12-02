@@ -16,6 +16,7 @@
 // - Start with the logic first, use console.log(state) to check your logic is working; when the logic is working as expected move onto styling
 // - Taking HTML semantics into consideration, use a button when an action is happening on the same page
 
+
 // Challenges
 // - Create a json-server, and make your app persist the data 
 // - Add filters to the store ie. filter by item type; when a user clicks a filter they will only see items of that type
@@ -37,10 +38,136 @@ This is how an item object should look like
 
 let state = {
     items: [{
-        id: 1,
-        name: beetroot,
-        price: 0.75,
-        amount: 1,
-    }],
-    totalPrice: 0.75
+            id: 1,
+            name: "Beetroot",
+            imageSrc: "/assets/icons/001-beetroot.svg",
+            price: 0.75,
+            amount: 0
+        },
+        {
+            id: 2,
+            name: "Carrot",
+            imageSrc: "/assets/icons/002-carrot.svg",
+            price: 0.50,
+            amount: 0
+        },
+        {
+            id: 3,
+            name: "Apple",
+            imageSrc: "/assets/icons/003-apple.svg",
+            price: 0.30,
+            amount: 0
+        },
+        {
+            id: 4,
+            imageSrc: "/assets/icons/004-apricot.svg",
+            name: "Apricot",
+            price: 0.95,
+            amount: 0
+        },
+        {
+            id: 5,
+            imageSrc: "/assets/icons/005-avocado.svg",
+            name: "Avocado",
+            price: 0.80,
+            amount: 0
+        },
+        {
+            id: 6,
+            imageSrc: "/assets/icons/006-bananas.svg",
+            name: "Banana",
+            price: 0.35,
+            amount: 0
+        },
+        {
+            id: 7,
+            name: "Bell pepper",
+            imageSrc: "/assets/icons/007-bell-pepper.svg",
+            price: 0.95,
+            amount: 0
+        },
+        {
+            id: 8,
+            name: "Berry",
+            imageSrc: "/assets/icons/008-berry.svg",
+            price: 1,
+            amount: 0
+        },
+        {
+            id: 9,
+            name: "BlueBerry",
+            imageSrc: "/assets/icons/009-blueberry.svg",
+            price: 1.2,
+            amount: 0
+        },
+        {
+            id: 10,
+            name: "Eggplant",
+            imageSrc: "/assets/icons/010-eggplant.svg",
+            price: 0.65,
+            amount: 0
+        }
+    ],
+    totalPrice: 0
 }
+
+// Helper Functions
+// Add items to cort
+
+
+function addItemToCart(item) {
+    item.amount++
+}
+
+// Remove Items from cart
+function removeItemFromCart(item) {
+    if (item.amount > 0) {
+        item.amount--
+    }
+}
+
+function totalAmout() {
+    for (item of state.items) {
+        state.totalPrice += item.price * item.amount
+    }
+}
+
+
+// Render Functions
+
+function renderShopItems() {
+    const storeList = document.querySelector('.store--item-list')
+
+    storeList.innerHTML = ""
+
+    for (item of state.items) {
+        const liEl = document.createElement('li')
+
+        liEl.innerHTML = `
+            <div class="store--item-icon">
+            <img src="${item.imageSrc}" alt="${item.name}" />
+            </div>
+            <button class="add-to-cart-button">Add to cart</button>
+        `
+        storeList.append(liEl)
+
+    }
+
+    //Check to make this better 
+    const storeButtons = document.querySelectorAll('.add-to-cart-button')
+
+    storeButtons.forEach((element, index) => {
+        element.addEventListener('click', () => {
+            addItemToCart(state.items[index])
+            console.log(state)
+            render()
+        })
+    })
+}
+
+function render() {
+    renderShopItems()
+}
+render()
+
+// Event Listener Functions
