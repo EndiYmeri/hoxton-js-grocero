@@ -144,10 +144,10 @@ function totalAmount() {
     }
 
     const totalAmountNumber = document.querySelector('.total-number')
-    totalAmountNumber.textContent = `£${state.totalPrice}`
+    totalAmountNumber.textContent = `£${state.totalPrice.toFixed(2)}`
 }
 // Render Functions
-
+// Render shop items
 function renderShopItems() {
     const storeList = document.querySelector('.store--item-list')
     storeList.innerHTML = ""
@@ -168,10 +168,10 @@ function renderShopItems() {
         addToCartButton.setAttribute('class', 'add-to-cart-button')
         addToCartButton.textContent = "Add to cart"
 
+        // Add Item to cart from shop button
         addToCartButton.addEventListener('click', () => {
             addItemToCart(item)
             render()
-            console.log(state)
         })
 
         liEl.append(storeItemIconDiv, addToCartButton)
@@ -179,12 +179,57 @@ function renderShopItems() {
     }
 }
 
+// Render items on Cart
+function renderCartItems() {
+    const cartItemsList = document.querySelector('.cart--item-list')
+    cartItemsList.innerHTML = ""
 
+    for (const item of state.items) {
+        if (item.amount > 0) {
+            const liEl = document.createElement('li')
+            const cartImage = document.createElement('img')
+            const cartItemTitle = document.createElement('p')
+            const cartItemQuantityDecrease = document.createElement('button')
+            const cartItemQuantity = document.createElement('span')
+            const cartItemQuantityIncrease = document.createElement('button')
+
+            cartImage.setAttribute('class', 'cart--item-icon')
+            cartImage.setAttribute('src', item.imageSrc)
+            cartImage.setAttribute('alt', item.name)
+
+            cartItemTitle.textContent = item.name
+
+            cartItemQuantityDecrease.setAttribute('class', 'quantity-btn remove-btn center')
+            cartItemQuantityDecrease.textContent = "-"
+
+            cartItemQuantity.setAttribute('class', 'quantity-text center')
+            cartItemQuantity.textContent = `${item.amount}`
+            cartItemQuantityIncrease.setAttribute('class', 'quantity-btn add-btn center')
+            cartItemQuantityIncrease.textContent = "+"
+
+            liEl.append(cartImage, cartItemTitle, cartItemQuantityDecrease, cartItemQuantity, cartItemQuantityIncrease)
+
+            // Decrease Item count from cart button
+            cartItemQuantityDecrease.addEventListener('click', () => {
+                removeItemFromCart(item)
+                render()
+            })
+
+            // Increase item count from cart button
+            cartItemQuantityIncrease.addEventListener('click', () => {
+                addItemToCart(item)
+                render()
+            })
+
+            cartItemsList.append(liEl)
+        }
+    }
+}
 
 function render() {
     totalAmount()
     renderShopItems()
-
+    renderCartItems()
 }
 render()
 
