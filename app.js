@@ -42,80 +42,70 @@ let state = {
             name: "Beetroot",
             imageSrc: "/assets/icons/001-beetroot.svg",
             price: 0.75,
-            amount: 0,
-            itemTotalPrice: 0
+            amount: 0
         },
         {
             id: 2,
             name: "Carrot",
             imageSrc: "/assets/icons/002-carrot.svg",
             price: 0.50,
-            amount: 0,
-            itemTotalPrice: 0
+            amount: 0
         },
         {
             id: 3,
             name: "Apple",
             imageSrc: "/assets/icons/003-apple.svg",
             price: 0.30,
-            amount: 0,
-            itemTotalPrice: 0
+            amount: 0
         },
         {
             id: 4,
             imageSrc: "/assets/icons/004-apricot.svg",
             name: "Apricot",
             price: 0.95,
-            amount: 0,
-            itemTotalPrice: 0
+            amount: 0
         },
         {
             id: 5,
             imageSrc: "/assets/icons/005-avocado.svg",
             name: "Avocado",
             price: 0.80,
-            amount: 0,
-            itemTotalPrice: 0
+            amount: 0
         },
         {
             id: 6,
             imageSrc: "/assets/icons/006-bananas.svg",
             name: "Banana",
             price: 0.35,
-            amount: 0,
-            itemTotalPrice: 0
+            amount: 0
         },
         {
             id: 7,
             name: "Bell pepper",
             imageSrc: "/assets/icons/007-bell-pepper.svg",
             price: 0.95,
-            amount: 0,
-            itemTotalPrice: 0
+            amount: 0
         },
         {
             id: 8,
             name: "Berry",
             imageSrc: "/assets/icons/008-berry.svg",
             price: 1,
-            amount: 0,
-            itemTotalPrice: 0
+            amount: 0
         },
         {
             id: 9,
             name: "BlueBerry",
             imageSrc: "/assets/icons/009-blueberry.svg",
             price: 1.2,
-            amount: 0,
-            itemTotalPrice: 0
+            amount: 0
         },
         {
             id: 10,
             name: "Eggplant",
             imageSrc: "/assets/icons/010-eggplant.svg",
             price: 0.65,
-            amount: 0,
-            itemTotalPrice: 0
+            amount: 0
         }
     ],
     totalPrice: 0
